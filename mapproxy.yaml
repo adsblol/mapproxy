@@ -1,0 +1,69 @@
+# File from:
+# https://github.com/PDOK/mapproxy-docker/blob/master/examples/config/mapproxy.yaml
+# MIT License
+
+# Copyright (c) 2019 Publieke Dienstverlening op de Kaart
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# -------------------------------
+# MapProxy configuration.
+#
+# OSM example based on https://wiki.openstreetmap.org/wiki/MapProxy
+# -------------------------------
+services:
+  demo:
+  wmts:
+    kvp: true
+    restful: true
+
+layers:
+- name: osm
+  title: Open Streetmap Tiles
+  sources: [osm_cache]
+
+caches:
+  osm_cache:
+    sources: [osm_tiles]
+    grids: [GLOBAL_MERCATOR]
+    format: image/png
+    cache:
+      type: geopackage
+      filename: /srv/mapproxy/cache_data/osm.gpkg
+      table_name: osm_tiles
+
+sources:
+  osm_tiles:
+    type: tile
+    url: http://c.tile.openstreetmap.org/%(tms_path)s.%(format)s
+    grid: osm_grid
+
+grids:
+  osm_grid:
+    srs: EPSG:900913
+    origin: nw
+
+globals:
+  cache:
+    base_dir: '/srv/mapproxy/cache_data'
+    lock_dir: '/srv/mapproxy/cache_data/locks'
+    tile_lock_dir: '/srv/mapproxy/cache_data/tile_locks'
+
+  image:
+    resampling_method: bilinear
+    jpeg_quality: 90
