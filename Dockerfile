@@ -30,4 +30,5 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 8000
 COPY mapproxy.yaml /app/mapproxy.yaml
 COPY init.py /app/init.py
+COPY log.ini /app/log.ini
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "init:application"]

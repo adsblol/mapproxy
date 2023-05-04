@@ -1,5 +1,7 @@
 import logging
-from os import environ
+from os import path, environ
+
+logging.config.fileConfig(r"/app/log.ini", {"here": path.dirname(__file__)})
 
 if environ.get("DEBUG"):
     logging.getLogger().setLevel(logging.DEBUG)
