@@ -1,0 +1,17 @@
+# networkpolicy allowing from component=mapproxy to component=redis
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mapproxy-redis
+spec:
+  podSelector:
+    matchLabels:
+      component: redis
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          component: mapproxy
+    ports:
+    - protocol: TCP
+      port: 6379

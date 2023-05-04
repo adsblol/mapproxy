@@ -1,0 +1,9 @@
+resources:
+- mapproxy.yaml
+commonLabels:
+  component: mapproxy
+
+configMapGenerator:
+- name: mapproxy-config
+  files:
+  - mapproxy.yaml=config.yaml

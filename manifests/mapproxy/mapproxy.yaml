@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mapproxy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapproxy
+spec:
+  template:
+    spec:
+      containers:
+      - name: mapproxy
+        image: ghcr.io/katlol/mapproxy
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+        - name: DEBUG
+          value: "1"
+        volumeMounts:
+        - name: mapproxy
+          mountPath: /app/mapproxy.yaml
+          subPath: mapproxy.yaml
+      volumes:
+      - name: mapproxy
+        projected:
+          sources:
+          - configMap:
+              name: mapproxy-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mapproxy
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: http
+    targetPort: http

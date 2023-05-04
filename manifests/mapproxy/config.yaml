@@ -1,0 +1,67 @@
+# -------------------------------
+# MapProxy configuration.
+#
+# OSM example based on https://wiki.openstreetmap.org/wiki/MapProxy
+# -------------------------------
+services:
+  demo:
+  tms:
+    use_grid_names: true
+    origin: 'nw'
+  kml:
+    use_grid_names: true
+  wmts:
+  wms:
+    srs: ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+
+layers:
+- name: osm
+  title: Open Streetmap Tiles
+  sources: [osm_cache]
+- name: openaip
+  title: OpenAIP Tiles
+  sources: [openaip_cache]
+
+caches:
+  osm_cache:
+    sources: [osm_tiles]
+    grids: [osm_grid]
+    format: image/png
+    cache:
+      type: redis
+      default_ttl: 86400
+      host: redis
+  openaip_cache:
+    sources: [openaip_tiles]
+    grids: [openaip_grid]
+    format: image/png
+    cache:
+      type: redis
+      default_ttl: 86400
+      host: redis
+
+sources:
+  osm_tiles:
+    type: tile
+    url: https://tile.openstreetmap.org/%(z)s/%(x)s/%(y)s.png
+    grid: osm_grid
+  openaip_tiles:
+    type: tile
+    url: https://api.tiles.openaip.net/api/data/openaip/%(z)s/%(x)s/%(y)s.png?apiKey=FIXME
+    grid: openaip_grid
+    transparent: true
+
+
+grids:
+  osm_grid:
+    srs: EPSG:900913
+    origin: nw
+  openaip_grid:
+    base: GLOBAL_WEBMERCATOR
+    srs: EPSG:3857
+    origin: nw
+
+globals:
+  image:
+    resampling_method: bilinear
+    jpeg_quality: 90

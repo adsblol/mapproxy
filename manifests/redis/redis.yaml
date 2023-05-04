@@ -1,0 +1,34 @@
+# redis max 256MB
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+  template:
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2.5-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
+          name: redis
+        resources:
+          limits:
+            memory: 256M
+          requests:
+            cpu: 0.1
+        # make sure config has maxmemory set
+        command: ["redis-server", "--maxmemory", "256mb"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+    name: redis
+    targetPort: redis

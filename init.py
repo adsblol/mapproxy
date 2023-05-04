@@ -1,5 +1,5 @@
 import logging
-from os import path, environ
+from os import environ, path
 
 logging.config.fileConfig(r"/app/log.ini", {"here": path.dirname(__file__)})
 
