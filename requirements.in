@@ -3,3 +3,4 @@ mapproxy
 boto3
 prometheus_client
 redis
+pyproj
