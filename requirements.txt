@@ -4,15 +4,15 @@
 #
 #    pip-compile
 #
-boto3==1.26.154
+boto3==1.28.37
     # via -r requirements.in
-botocore==1.29.154
+botocore==1.31.37
     # via
     #   boto3
     #   s3transfer
-certifi==2023.5.7
+certifi==2023.7.22
     # via pyproj
-gunicorn==20.1.0
+gunicorn==21.2.0
     # via -r requirements.in
 jmespath==1.0.1
     # via
@@ -20,24 +20,23 @@ jmespath==1.0.1
     #   botocore
 mapproxy==1.16.0
     # via -r requirements.in
-pillow==9.5.0
+packaging==23.1
+    # via gunicorn
+pillow==10.0.0
     # via mapproxy
-prometheus-client==0.17.0
+prometheus-client==0.17.1
     # via -r requirements.in
 pyproj==3.6.0
     # via -r requirements.in
 python-dateutil==2.8.2
     # via botocore
-pyyaml==6.0
+pyyaml==6.0.1
     # via mapproxy
-redis==4.5.5
+redis==5.0.0
     # via -r requirements.in
-s3transfer==0.6.1
+s3transfer==0.6.2
     # via boto3
 six==1.16.0
     # via python-dateutil
 urllib3==1.26.16
     # via botocore
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
