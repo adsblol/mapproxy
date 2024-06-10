@@ -4,13 +4,13 @@
 #
 #    pip-compile
 #
-boto3==1.34.111
+boto3==1.34.122
     # via -r requirements.in
-botocore==1.34.111
+botocore==1.34.122
     # via
     #   boto3
     #   s3transfer
-certifi==2024.2.2
+certifi==2024.6.2
     # via pyproj
 gunicorn==22.0.0
     # via -r requirements.in
@@ -20,7 +20,7 @@ jmespath==1.0.1
     #   botocore
 mapproxy==2.0.2
     # via -r requirements.in
-packaging==24.0
+packaging==24.1
     # via gunicorn
 pillow==10.3.0
     # via mapproxy
@@ -32,7 +32,7 @@ python-dateutil==2.9.0.post0
     # via botocore
 pyyaml==6.0.1
     # via mapproxy
-redis==5.0.4
+redis==5.0.5
     # via -r requirements.in
 s3transfer==0.10.1
     # via boto3
